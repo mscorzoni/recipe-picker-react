@@ -16,7 +16,7 @@ class App extends Component {
     const api_call = await fetch(`https://www.food2fork.com/api/search?key=${API_KEY}&q=chicken%20breast&page=5`);
     
     const data = await api_call.json();
-    console.log(data.recipes[0]);
+    this.setState({recipes: data.recipes});
   }
 
   
@@ -28,6 +28,9 @@ class App extends Component {
             <h1 className="App-title">Recipe Search</h1>
           </header>
         <Form getRecipe={this.getRecipe}/>
+        { this.state.recipes.map((recipe) => {
+          return <p key={recipe.recipe_id}>{recipe.title}</p>
+        })}
       </div>
       
     );
