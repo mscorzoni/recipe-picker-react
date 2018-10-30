@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import Form from './components/Form';
 import Recipes from './components/Recipes';
-
-const API_KEY = '5bea2e86977e42ced540a80eb3e9779b';
+import API_KEY from './env.js';
 
 
 class App extends Component {
@@ -20,6 +19,16 @@ class App extends Component {
     this.setState({recipes: data.recipes});
   }
 
+  componentDidMount = () => {
+    const json = localStorage.getItem("recipes");
+    const recipes = JSON.parse(json);
+    this.setState({ recipes });
+  }
+
+  componentDidUpdate = () => {
+    const recipes = JSON.stringify(this.state.recipes);
+    localStorage.setItem("recipes", recipes);
+  }
   
 
   render() {
